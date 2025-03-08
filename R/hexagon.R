@@ -57,7 +57,9 @@ open_device <- function(file_path, resolution = 300) {
     height = 5.08,
     units = "cm",
     res = resolution,
-    bg = "transparent"
+    bg = "transparent",
+    type = "cairo",
+    antialias = "none"
   )
 
 }
