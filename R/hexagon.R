@@ -51,16 +51,27 @@ open_device <- function(file_path, resolution = 300) {
     stop("Argument 'resolution' must be a numeric value.", call. = FALSE)
   }
 
-  grDevices::png(
-    filename = file_path,
-    width =  4.39,
-    height = 5.08,
-    units = "cm",
-    res = resolution,
-    bg = "transparent",
-    type = "cairo",
-    antialias = "none"
-  )
+  if (.Platform[["OS.type"]] == "windows") {
+    grDevices::png(
+      filename = file_path,
+      width =  4.39,
+      height = 5.08,
+      units = "cm",
+      res = resolution,
+      bg = "transparent",
+      type = "cairo",
+      antialias = "none"
+    )
+  } else {
+    grDevices::png(
+      filename = file_path,
+      width =  4.39,
+      height = 5.08,
+      units = "cm",
+      res = resolution,
+      bg = "transparent"
+    )
+  }
 
 }
 
