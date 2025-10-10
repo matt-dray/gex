@@ -52,7 +52,7 @@ Note how you call each function independently, much like writing base plots.
 
 ```r
 # Somewhere to save it
-temp_path <- "~/Desktop/hexbase.png"
+temp_path <- tempfile(fileext = ".png")
 
 # Bring your own image
 image_path <- system.file("img", "Rlogo.png", package = "png")
