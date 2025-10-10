@@ -1,7 +1,7 @@
 # {gex} <a href='https://github.com/matt-dray/gex'><img src='man/figures/logo.png' align='right' width='200'/></a>
 
 <!-- badges: start -->
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![R-CMD-check](https://github.com/matt-dray/gex/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/matt-dray/gex/actions/workflows/R-CMD-check.yaml)
 [![Blog posts](https://img.shields.io/badge/rostrum.blog-posts-008900?labelColor=000000&logo=data%3Aimage%2Fgif%3Bbase64%2CR0lGODlhEAAQAPEAAAAAABWCBAAAAAAAACH5BAlkAAIAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAAC55QkISIiEoQQQgghRBBCiCAIgiAIgiAIQiAIgSAIgiAIQiAIgRAEQiAQBAQCgUAQEAQEgYAgIAgIBAKBQBAQCAKBQEAgCAgEAoFAIAgEBAKBIBAQCAQCgUAgEAgCgUBAICAgICAgIBAgEBAgEBAgEBAgECAgICAgECAQIBAQIBAgECAgICAgICAgECAQECAQICAgICAgICAgEBAgEBAgEBAgICAgICAgECAQIBAQIBAgECAgICAgIBAgECAQECAQIBAgICAgIBAgIBAgEBAgECAgECAgICAgICAgECAgECAgQIAAAQIKAAAh%2BQQJZAACACwAAAAAEAAQAAAC55QkIiESIoQQQgghhAhCBCEIgiAIgiAIQiAIgSAIgiAIQiAIgRAEQiAQBAQCgUAQEAQEgYAgIAgIBAKBQBAQCAKBQEAgCAgEAoFAIAgEBAKBIBAQCAQCgUAgEAgCgUBAICAgICAgIBAgEBAgEBAgEBAgECAgICAgECAQIBAQIBAgECAgICAgICAgECAQECAQICAgICAgICAgEBAgEBAgEBAgICAgICAgECAQIBAQIBAgECAgICAgIBAgECAQECAQIBAgICAgIBAgIBAgEBAgECAgECAgICAgICAgECAgECAgQIAAAQIKAAA7)](https://www.rostrum.blog/index.html#category=gex)
 <!-- badges: end -->
@@ -50,9 +50,9 @@ It's up to the user to read their own images (via {[png](https://cran.r-project.
 Below is an extremely basic example.
 Note how you call each function independently, much like writing base plots.
 
-``` r
+```r
 # Somewhere to save it
-temp_path <- tempfile(fileext = ".png")
+temp_path <- "~/Desktop/hexbase.png"
 
 # Bring your own image
 image_path <- system.file("img", "Rlogo.png", package = "png")
@@ -63,7 +63,7 @@ gex::open_device(
   file_path = temp_path,
   resolution = 300  # ppi, you can increase this
 )
-gex::add_hex(col = "#BEBEBE")  # named or hexadecimal
+gex::add_hex(col = "bisque")  # named or hexadecimal
 gex::add_image(
   img = image_png,
   y = 0.6,  # 0 to 1 on x and y axes
@@ -72,27 +72,36 @@ gex::add_image(
 )
 gex::add_text(
   string = "example",
+  x = 0.495,
   y = 0.35,
+  col = "#000000",
+  family = "Comic Sans MS",   # bring your own font
+  face = "bold"
+)
+gex::add_text(
+  string = "example",
+  x = 0.505,
+  y = 0.34,
   col = "red",
-  family = "mono",  # bring your own font
-  face = "bold.italic"
+  family = "Comic Sans MS",
+  face = "bold"
 )
 gex::add_text(  # add multiple text and images
-  string = "visit https://rstats.lol/ ftw",
+  string = "visit rostrum.blog ftw",
   x = 0.73, 
-  y = 0.17,
-  angle = 30, 
-  size = 6, 
+  y = 0.18,
+  angle = 30,  # rotate to match lower-right edge
+  size = 5,  # point size
   col = "blue", 
-  family = "serif"
+  family = "Papyrus"
 )
-gex::add_border(col = "grey20")
+gex::add_border(col = "hotpink3")
 gex::close_device()  # writes to file
 ```
 
 That creates this absolutely stunning demo sticker, written to the specified `file_path`:
 
-<img src='man/figures/example.png' width='200' alt="A grey hexagon with a dark grey border. An R logo is shown just above centre and angled at 30 degrees. Just below centre is the text 'example' in monospace red and bold font. On the lower right edge is the URL 'htps://rstats.lol' in smaller, blue italic serif font.">
+<img src='man/figures/example.png' width='200' alt="A bisque-coloured hexagon with a hotpink border. The R logo is above centre and tilted at a jaunty angle. The text 'example' writtenin Comic Sans and is copied and shifted to give the effect of a shadow, red on black. On the lower-right edge in blue papyrus font is the text 'visit rostrum.blog ftw'.">
 
 Note that you can't rely on plot-window previews when you're developing your sticker (they lie).
 You must inspect the generated PNG file instead.
